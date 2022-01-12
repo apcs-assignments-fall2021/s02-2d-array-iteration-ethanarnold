@@ -1,0 +1,64 @@
+{
+  "tests": [
+    {
+      "name": "testFindLastWord",
+      "setup": "",
+      "run": "./gradlew clean test --tests MyTests.testFindLastWord",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "testFindLastWord2D",
+      "setup": "",
+      "run": "./gradlew clean test --tests MyTests.testFindLastWord2D",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "testAppleCounter",
+      "setup": "",
+      "run": "./gradlew clean test --tests MyTests.testAppleCounter",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "findMostAppleColumn",
+      "setup": "",
+      "run": "./gradlew clean test --tests MyTests.findMostAppleColumn",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "testPascal",
+      "setup": "",
+      "run": "./gradlew clean test --tests MyTests.testPascal",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "testIsMagic",
+      "setup": "",
+      "run": "./gradlew clean test --tests MyTests.testIsMagic",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    }
+  ]
+}

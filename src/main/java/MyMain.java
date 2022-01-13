@@ -7,8 +7,11 @@ public class MyMain {
     //      int x = "apple".compareTo("banana"); // x is negative
     //      int y = "banana".compareTo("apple"); // y is positive
     public static String findLastWord(String[] arr) {
-        // YOUR CODE HERE
-        return "";
+        String res = arr[0];
+        for (String x : arr) {
+            if (res.compareTo(x) < 0) res = x;
+        }
+        return res;
     }
 
     // Given a 2D array, return an 1D array of the last word
@@ -16,8 +19,11 @@ public class MyMain {
     // You can assume that the matrix will not be empty
     // Hint: use the previous method to help yourself!
     public static String[] findLastWord2D(String[][] mat) {
-        // YOUR CODE HERE
-        return null;
+        String[] res = new String[mat.length];
+        for(int row = 0; row < mat.length; row++) {
+            res[row] = mat[row][mat[0].length-1];
+        }
+        return res;
     }
 
     // Given a 2D array and some column index col
@@ -30,8 +36,11 @@ public class MyMain {
     // Hint: remember how the indexOf() method works?
     // alternatively, consider the contains() method
     public static int appleCounter(String[][] mat, int col) {
-        // YOUR CODE HERE
-        return -1;
+        int count = 0;
+        for(int row = 0; row < mat.length; row++) {
+            if(mat[row][col].contains("apple")) count++;
+        }
+        return count;
     }
 
     // Given a 2D array, return the column number corresponding
@@ -41,8 +50,15 @@ public class MyMain {
     // Hint: use your previous method!
     // Hint 2: you might need to loop through the columns!
     public static int findMostAppleColumn(String[][] mat) {
-        // YOUR CODE HERE
-        return -1;
+        int res = 0;
+        int count = 0;
+        for (int col = 0; col < mat[0].length; col++) {
+            if(appleCounter(mat, col) > count) {
+                res = col;
+                count = appleCounter(mat, col);
+            }
+        }
+        return res;
     }
 
 
@@ -70,18 +86,18 @@ public class MyMain {
     //       from top to bottom
 
     public static int[][] pascal(int height) {
-        // YOUR CODE HERE
-        return null;
+        int[][] pascal = new int[height][height];
+        pascal[0][0] = 1;
+        for (int row = 1; row < height; row++) {
+            pascal[row][0] = 1;
+            for (int col = 1; col < height; col++) {
+                pascal[row][col] = pascal[row-1][col] + pascal[row-1][col-1];
+            }
+        }
+        return pascal;
     }
 
-
-
-
-
-
-
-
-
+    //booyah
 
     // Methods for the homework:
 
@@ -98,21 +114,84 @@ public class MyMain {
     // Then, you should check each rows, check each column, and
     // check each diagonal
 
-    // Hint 2: you problably want to break this down into many parts.
+    // Hint 2: you probably want to break this down into many parts.
     // You should have two loops to check the row sums. Then two more
-    // loops to chekc the column sums. Finally, it might help to have
+    // loops to check the column sums. Finally, it might help to have
     // one for loop for each diagonal
 
     // Hint 3: when thinking the diagonals, consider the following
     // * do you see any pattern for the row and col indexes for a diagonal?
     // * can you use a for loop that goes through that pattern?
     public static boolean isMagic(int[][] mat) {
-        // YOUR CODE HERE
-        return false;
-    }
+        int magic = sum(mat[0]);
+        /* rows */
+        for (int row = 0; row < mat.length; row++) {
+            if(!(magicRow(mat, row, magic))) return false;
+        }
+        /* columns */
+        for (int col = 0; col < mat[0].length; col++) {
+            if(!(magicCol(mat, col, magic))) return false;
+        }
+        /*diagonals*/
+        if (!(magicDiagonals(mat, magic))) return false;
 
+        return true;
+    }
+    //returns true if the sum of all elements in a given row "row" of a 2d array "mat" is equal to an int magic
+    public static boolean magicRow(int[][] mat, int row, int magic) {
+        int sum = 0;
+        for (int anInt : mat[row]) {
+            sum += anInt;
+        }
+        return (sum == magic);
+    }
+    //returns true if the sum of all elements in a given col "col" of a 2d array "mat" is equal to an int magic
+    public static boolean magicCol(int[][] mat, int col, int magic) {
+        int sum = 0;
+        for (int row = 0; row < mat.length; row++) {
+            sum += mat[row][col];
+        }
+        return (sum == magic);
+    }
+    //returns true if diagonals are magical
+    public static boolean magicDiagonals(int[][] mat, int magic) {
+        int sum1 = 0;
+        int sum2 = 0;
+        int col1 = 0;
+        int col2 = mat[0].length - 1;
+        for (int[] ints : mat) {
+            sum1 += ints[col1];
+            sum2 += ints[col2];
+            col1++;
+            col2--;
+        }
+        return (sum1 == magic && sum2 == magic);
+    }
+    //gives sum of an array
+    public static int sum(int[] arr) {
+        int sum = 0;
+        for (int x : arr) {
+            sum += x;
+        }
+        return sum;
+    }
 
     public static void main(String[] args) {
-        // Write some code here to test your methods!
+        int[][] mat = {
+                { 1, 23, 16,  4, 21},
+                {15, 14,  7, 18, 11},
+                {24, 17, 13,  9,  2},
+                {21,  8, 19, 12,  6},
+                { 5,  3, 10, 22, 25}};
+
+        System.out.println(magicDiagonals(mat, 65));
+        System.out.println(magicCol(mat, 1, 65));
+        System.out.println(magicRow(mat, 0, 65));
+        System.out.println(sum(mat[0]));
     }
+
 }
+
+
+
+
